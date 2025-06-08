@@ -1,5 +1,13 @@
 # Intro
-This is a heavily AI-supported website build. The site is meant for temporary and very limited use to inform neighbors about the home we are building.
+This is a heavily AI-generated website development project. The site is temporary and has limited use, meant only to inform neighbors about the home we are building.
+
+## Development
+- `npm start` - Run development server
+- `npm run build` - Build for production
+- `npm run deploy` - Deploy to GitHub Pages
+
+## Live Site
+Visit: https://yourusername.github.io/my-house-project
 
 # Structure
 house_build_website/
