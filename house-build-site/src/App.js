@@ -12,6 +12,8 @@ const HouseProjectWebsite = () => {
     { src: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800', alt: 'Foundation work' },
     { src: 'https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800', alt: 'Framing progress' },
     { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800', alt: 'Interior work' }
+    { src: '/house-build-site/public/images/rendering_front_side.png', alt: 'Rendering of front and side of house' },
+    { src: '/house-build-site/public/images/rendering_rear.png', alt: 'Rendering of rear w/ deck' }
   ];
 
   // Analytics tracking
@@ -40,12 +42,17 @@ const HouseProjectWebsite = () => {
   };
 
   const milestones = [
-    { date: 'March 2024', task: 'Permits Approved', status: 'completed' },
-    { date: 'April 2024', task: 'Foundation Poured', status: 'completed' },
-    { date: 'May 2024', task: 'Framing Complete', status: 'completed' },
-    { date: 'June 2024', task: 'Roofing & Siding', status: 'in-progress' },
-    { date: 'July 2024', task: 'Interior Work', status: 'upcoming' },
-    { date: 'August 2024', task: 'Final Inspections', status: 'upcoming' }
+    { date: 'April 2024', task: 'Decided to build passive home as \"forever home\"', status: 'completed' },
+    { date: 'July 2024', task: 'Purchase 239 and 239R Beech St', status: 'completed' },
+    { date: 'April 2025', task: 'Finalize architecture', status: 'completed' },
+    { date: 'May 2025', task: 'Finalize proposed site plan', status: 'completed' },
+    { date: 'June 2025', task: 'Submit building permit', status: 'in-progress' },
+    { date: 'Sept 2025 - Q2 2026', task: 'Zoning Board of Appeals approval', status: 'upcoming' },
+    { date: 'Q2-Q3 2026', task: 'Foundation and site work', status: 'upcoming' },
+    { date: 'Q3 2026', task: 'EkoBuilt kit delivery; exterior completed', status: 'upcoming' },
+    { date: 'Q3-Q4 2026', task: 'Interior Work', status: 'upcoming' },
+    { date: 'Q4 2026', task: 'Final Inspections', status: 'upcoming' },
+    { date: 'Q4 2026', task: 'Move in', status: 'upcoming' }
   ];
 
   return (
@@ -79,15 +86,15 @@ const HouseProjectWebsite = () => {
         <div className="absolute inset-0 z-20 flex items-center justify-center text-center text-white">
           <div className="max-w-4xl px-4">
             <h2 className="text-4xl md:text-6xl font-bold mb-4">Building Our Dream Home</h2>
-            <p className="text-xl md:text-2xl mb-6">123 Maple Street • Anytown, USA</p>
+            <p className="text-xl md:text-2xl mb-6">239R Beech St • Roslindale, MA</p>
             <div className="flex items-center justify-center space-x-4 text-sm">
               <div className="flex items-center">
                 <MapPin className="w-4 h-4 mr-1" />
-                <span>Maple Street Neighborhood</span>
+                <span>Roslindale Neighborhood</span>
               </div>
               <div className="flex items-center">
                 <Calendar className="w-4 h-4 mr-1" />
-                <span>Expected Completion: August 2024</span>
+                <span>Expected Completion: Q4 2026</span>
               </div>
             </div>
           </div>
@@ -110,12 +117,12 @@ const HouseProjectWebsite = () => {
             </div>
             <div className="text-center p-4 bg-yellow-50 rounded-lg">
               <Wrench className="w-8 h-8 mx-auto text-yellow-600 mb-2" />
-              <div className="text-2xl font-bold text-gray-800">65%</div>
+              <div className="text-2xl font-bold text-gray-800">0%</div>
               <div className="text-sm text-gray-600">Construction Complete</div>
             </div>
             <div className="text-center p-4 bg-purple-50 rounded-lg">
               <Calendar className="w-8 h-8 mx-auto text-purple-600 mb-2" />
-              <div className="text-2xl font-bold text-gray-800">8</div>
+              <div className="text-2xl font-bold text-gray-800">77</div>
               <div className="text-sm text-gray-600">Weeks Remaining</div>
             </div>
           </div>
@@ -130,22 +137,20 @@ const HouseProjectWebsite = () => {
             <div>
               <h3 className="text-2xl font-semibold text-gray-800 mb-4">Modern Family Home</h3>
               <p className="text-gray-600 mb-6">
-                We're excited to share our journey of building a 2,400 sq ft contemporary home in the heart of 
-                Maple Street neighborhood. This energy-efficient home will feature 4 bedrooms, 3 bathrooms, 
-                and an open-concept living space perfect for our growing family.
+                We're excited to share our journey of building a two story home with walkout basement in the Roslindale neighborhood. This energy-efficient home will feature 4 bedrooms, 3.5 bathrooms, and an open-concept living space for our family of four.
               </p>
               <div className="space-y-3">
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
-                  <span className="text-gray-700">Energy-efficient design with solar panels</span>
+                  <span className="text-gray-700">Energy-efficient design with passive house principles</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-green-600 rounded-full mr-3"></div>
-                  <span className="text-gray-700">Sustainable building materials</span>
+                  <span className="text-gray-700">Pre-fab walls for fast construction</span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-yellow-600 rounded-full mr-3"></div>
-                  <span className="text-gray-700">Smart home technology integration</span>
+                  <span className="text-gray-700">Access via Beech St</span>
                 </div>
               </div>
             </div>
@@ -155,7 +160,7 @@ const HouseProjectWebsite = () => {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Square Footage:</span>
-                    <span className="font-medium">2,400 sq ft</span>
+                    <span className="font-medium">2,600 sq ft</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Bedrooms:</span>
@@ -163,15 +168,15 @@ const HouseProjectWebsite = () => {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Bathrooms:</span>
-                    <span className="font-medium">3</span>
+                    <span className="font-medium">3.5</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Garage:</span>
-                    <span className="font-medium">2-car attached</span>
+                    <span className="text-gray-600">Parking:</span>
+                    <span className="font-medium">2 off-street spots</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Lot Size:</span>
-                    <span className="font-medium">0.3 acres</span>
+                    <span className="font-medium">7,032 sq ft</span>
                   </div>
                 </div>
               </div>
@@ -283,15 +288,15 @@ const HouseProjectWebsite = () => {
                 <div className="space-y-3">
                   <div className="flex items-center">
                     <Phone className="w-5 h-5 text-blue-600 mr-3" />
-                    <span className="text-gray-700">(555) 123-4567</span>
+                    <span className="text-gray-700">(617) 449-0684</span>
                   </div>
                   <div className="flex items-center">
                     <Mail className="w-5 h-5 text-blue-600 mr-3" />
-                    <span className="text-gray-700">hello@ourhouseproject.com</span>
+                    <span className="text-gray-700">kelleysaulniers@gmail.com</span>
                   </div>
                   <div className="flex items-center">
                     <MapPin className="w-5 h-5 text-blue-600 mr-3" />
-                    <span className="text-gray-700">123 Maple Street, Anytown, USA</span>
+                    <span className="text-gray-700">239R Beech St, Roslindale, MA</span>
                   </div>
                 </div>
               </div>
@@ -318,7 +323,7 @@ const HouseProjectWebsite = () => {
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-8">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="mb-2">© 2024 Our House Project. Built with love for our neighbors.</p>
+          <p className="mb-2">© 2025 The Kelley Saulniers. Built with love for our neighbors.</p>
           <p className="text-gray-400 text-sm">Thanks for following our journey!</p>
         </div>
       </footer>
