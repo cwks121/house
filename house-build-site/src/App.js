@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Camera, MapPin, Calendar, MessageSquare, Phone, Mail, Home, Users, Wrench } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const HouseProjectWebsite = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -28,17 +29,34 @@ const HouseProjectWebsite = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    const newQuestion = {
-      ...formData,
-      id: Date.now(),
-      timestamp: new Date().toLocaleDateString()
-    };
-    setQuestions(prev => [newQuestion, ...prev]);
+const handleFormSubmit = (e) => {
+  e.preventDefault();
+  
+  const templateParams = {
+    from_name: formData.name,
+    from_email: formData.email,
+    message: formData.question,
+    timestamp: new Date().toLocaleDateString(),
+    to_email: 'kelleysaulniers@gmail.com'
+  };
+
+  emailjs.send(
+    'service_wxgaw8a',     // Replace with your Service ID
+    'template_qbfvby8',    // Replace with your Template ID
+    templateParams,
+    'PvoFJ6qevHck-PArM'      // Replace with your Public Key
+  )
+  .then((response) => {
+    console.log('SUCCESS!', response.status, response.text);
     setFormData({ name: '', email: '', question: '' });
     alert('Thank you for your question! We\'ll get back to you soon.');
-  };
+  })
+  .catch((error) => {
+    console.log('FAILED...', error);
+    alert('Sorry, there was an error sending your question. Please try again, or email us separately at kelleysaulniers@gmail.com.');
+  });
+};
+
 
   const milestones = [
     { date: 'April 2024', task: 'Decided to build passive home as \"forever home\"', status: 'completed' },
@@ -62,10 +80,10 @@ const HouseProjectWebsite = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <Home className="w-8 h-8 text-blue-600" />
-              <h1 className="text-2xl font-bold text-gray-800">Our New Home Journey</h1>
+              <h1 className="text-2xl font-bold text-gray-800">239R Beech St</h1>
             </div>
             <div className="hidden md:flex items-center space-x-6">
-              <a href="#progress" className="text-gray-600 hover:text-blue-600 transition-colors">Progress</a>
+              <a href="#about" className="text-gray-600 hover:text-blue-600 transition-colors">About</a>
               <a href="#gallery" className="text-gray-600 hover:text-blue-600 transition-colors">Gallery</a>
               <a href="#timeline" className="text-gray-600 hover:text-blue-600 transition-colors">Timeline</a>
               <a href="#contact" className="text-gray-600 hover:text-blue-600 transition-colors">Questions</a>
@@ -84,7 +102,7 @@ const HouseProjectWebsite = () => {
         />
         <div className="absolute inset-0 z-20 flex items-center justify-center text-center text-white">
           <div className="max-w-4xl px-4">
-            <h2 className="text-4xl md:text-6xl font-bold mb-4">Building Our Dream Home</h2>
+            <h2 className="text-4xl md:text-6xl font-bold mb-4">Building Our New Home</h2>
             <p className="text-xl md:text-2xl mb-6">239R Beech St • Roslindale, MA</p>
             <div className="flex items-center justify-center space-x-4 text-sm">
               <div className="flex items-center">
@@ -100,43 +118,14 @@ const HouseProjectWebsite = () => {
         </div>
       </section>
 
-      {/* Analytics Dashboard */}
-      <section className="bg-white py-8 border-b">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="text-center p-4 bg-blue-50 rounded-lg">
-              <Users className="w-8 h-8 mx-auto text-blue-600 mb-2" />
-              <div className="text-2xl font-bold text-gray-800">{visitCount}</div>
-              <div className="text-sm text-gray-600">Site Visits</div>
-            </div>
-            <div className="text-center p-4 bg-green-50 rounded-lg">
-              <MessageSquare className="w-8 h-8 mx-auto text-green-600 mb-2" />
-              <div className="text-2xl font-bold text-gray-800">{questions.length}</div>
-              <div className="text-sm text-gray-600">Questions Received</div>
-            </div>
-            <div className="text-center p-4 bg-yellow-50 rounded-lg">
-              <Wrench className="w-8 h-8 mx-auto text-yellow-600 mb-2" />
-              <div className="text-2xl font-bold text-gray-800">0%</div>
-              <div className="text-sm text-gray-600">Construction Complete</div>
-            </div>
-            <div className="text-center p-4 bg-purple-50 rounded-lg">
-              <Calendar className="w-8 h-8 mx-auto text-purple-600 mb-2" />
-              <div className="text-2xl font-bold text-gray-800">77</div>
-              <div className="text-sm text-gray-600">Weeks Remaining</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Project Overview */}
-      <section id="progress" className="py-16">
+      <section id="about" className="py-16">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">About Our Project</h2>
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">Modern Family Home</h3>
-              <p className="text-gray-600 mb-6">
-                We're excited to share our journey of building a two story home with walkout basement in the Roslindale neighborhood. This energy-efficient home will feature 4 bedrooms, 3.5 bathrooms, and an open-concept living space for our family of four.
+              <p className="mb-6">
+                We're excited to share our journey of building a two story home with walkout basement in the Roslindale neighborhood. This energy-efficient home was designed for our young family.
               </p>
               <div className="space-y-3">
                 <div className="flex items-center">
@@ -151,6 +140,9 @@ const HouseProjectWebsite = () => {
                   <div className="w-2 h-2 bg-yellow-600 rounded-full mr-3"></div>
                   <span className="text-gray-700">Access via Beech St</span>
                 </div>
+              <p>
+                The house was designed by selecting an <a href="https://ekobuilt.com/" target="_blank" className="external-link">EkoBuilt</a> floor plan that matched the property's natural grading.
+              </p>
               </div>
             </div>
             <div className="relative">
@@ -187,7 +179,7 @@ const HouseProjectWebsite = () => {
       {/* Photo Gallery */}
       <section id="gallery" className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Construction Gallery</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Project Gallery</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {constructionImages.map((image, index) => (
               <div key={index} className="relative group overflow-hidden rounded-lg shadow-lg">
@@ -211,7 +203,7 @@ const HouseProjectWebsite = () => {
       {/* Timeline */}
       <section id="timeline" className="py-16">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Construction Timeline</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Potential Project Timeline</h2>
           <div className="space-y-6">
             {milestones.map((milestone, index) => (
               <div key={index} className="flex items-center">
