@@ -9,11 +9,10 @@ const HouseProjectWebsite = () => {
 
   // Sample images - replace with your actual construction photos
   const constructionImages = [
-    { src: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800', alt: 'Foundation work' },
-    { src: 'https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800', alt: 'Framing progress' },
-    { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800', alt: 'Interior work' }
-    { src: '/house-build-site/public/images/rendering_front_side.png', alt: 'Rendering of front and side of house' },
-    { src: '/house-build-site/public/images/rendering_rear.png', alt: 'Rendering of rear w/ deck' }
+    { src: '/images/rendering_front_side.png', alt: 'Rendering of front and side of house' },
+    { src: '/images/rendering_rear.png', alt: 'Rendering of rear w/ deck' },
+    { src: '/images/proposed_site_plan.png', alt: 'Proposed site plan' },
+    { src: '/images/Overhead_239r_site_at_purchase.jpeg', alt: 'Plot view from June 2024' }
   ];
 
   // Analytics tracking
@@ -160,7 +159,7 @@ const HouseProjectWebsite = () => {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Square Footage:</span>
-                    <span className="font-medium">2,600 sq ft</span>
+                    <span className="font-medium">~2,600 sq ft</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Bedrooms:</span>
@@ -176,7 +175,7 @@ const HouseProjectWebsite = () => {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Lot Size:</span>
-                    <span className="font-medium">7,032 sq ft</span>
+                    <span className="font-medium">~7,000 sq ft</span>
                   </div>
                 </div>
               </div>
