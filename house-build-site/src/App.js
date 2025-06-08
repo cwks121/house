@@ -125,7 +125,7 @@ const handleFormSubmit = (e) => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <p className="mb-6">
-                We're excited to share our journey of building a two story home with walkout basement in the Roslindale neighborhood. This energy-efficient home was designed for our young family.
+                We're excited to share our journey of building a two story home with walkout basement in the Roslindale neighborhood. This energy-efficient home was designed for our young family. This website will be updated regularly – check back in the future!
               </p>
               <div className="space-y-3">
                 <div className="flex items-center">
