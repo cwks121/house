@@ -8,13 +8,12 @@ const HouseProjectWebsite = () => {
   const [questions, setQuestions] = useState([]);
   const [visitCount, setVisitCount] = useState(0);
 
-  // Sample images - replace with your actual construction photos
-  const constructionImages = [
-    { src: '/images/rendering_front_side.png', alt: 'Rendering of front and side of house' },
-    { src: '/images/rendering_rear.png', alt: 'Rendering of rear w/ deck' },
-    { src: '/images/proposed_site_plan.png', alt: 'Proposed site plan' },
-    { src: '/images/Overhead_239r_site_at_purchase.jpeg', alt: 'Plot view from June 2024' }
-  ];
+const constructionImages = [
+  { src: `${process.env.PUBLIC_URL}/images/rendering_front_side.png`, alt: 'Rendering of front and side of house' },
+  { src: `${process.env.PUBLIC_URL}/images/rendering_rear.png`, alt: 'Rendering of rear w/ deck' },
+  { src: `${process.env.PUBLIC_URL}/images/proposed_site_plan.png`, alt: 'Proposed site plan' },
+  { src: `${process.env.PUBLIC_URL}/images/Overhead_239r_site_at_purchase.jpeg`, alt: 'Plot view from June 2024' }
+];
 
   // Analytics tracking
   useEffect(() => {
