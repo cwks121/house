@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Camera, MapPin, Calendar, MessageSquare, Phone, Mail, Home, Users, Wrench } from 'lucide-react';
+import { Camera, MapPin, Calendar, MessageSquare, Phone, Mail, Home, Users, Wrench, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
 const HouseProjectWebsite = () => {
@@ -15,10 +15,9 @@ const constructionImages = [
   { src: `${process.env.PUBLIC_URL}/images/Overhead_239r_site_at_purchase.jpeg`, alt: 'Plot view from June 2024' }
 ];
 
-  // Analytics tracking
-  useEffect(() => {
-    setVisitCount(prev => prev + 1);
-  }, []);
+const [selectedImage, setSelectedImage] = useState(null);
+const [currentIndex, setCurrentIndex] = useState(0);
+
 
   // Auto-rotate images
   useEffect(() => {
@@ -56,13 +55,40 @@ const handleFormSubmit = (e) => {
   });
 };
 
+const openModal = (image, index) => {
+  setSelectedImage(image);
+  setCurrentIndex(index);
+};
+
+const closeModal = () => {
+  setSelectedImage(null);
+};
+
+const goToPrevious = () => {
+  const newIndex = currentIndex > 0 ? currentIndex - 1 : constructionImages.length - 1;
+  setCurrentIndex(newIndex);
+  setSelectedImage(constructionImages[newIndex]);
+};
+
+const goToNext = () => {
+  const newIndex = currentIndex < constructionImages.length - 1 ? currentIndex + 1 : 0;
+  setCurrentIndex(newIndex);
+  setSelectedImage(constructionImages[newIndex]);
+};
+
+const handleKeyDown = (e) => {
+  if (e.key === 'Escape') closeModal();
+  if (e.key === 'ArrowLeft') goToPrevious();
+  if (e.key === 'ArrowRight') goToNext();
+};
 
   const milestones = [
     { date: 'April 2024', task: 'Decided to build passive home as \"forever home\"', status: 'completed' },
     { date: 'July 2024', task: 'Purchase 239 and 239R Beech St', status: 'completed' },
     { date: 'April 2025', task: 'Finalize architecture', status: 'completed' },
     { date: 'May 2025', task: 'Finalize proposed site plan', status: 'completed' },
-    { date: 'June 2025', task: 'Submit building permit', status: 'in-progress' },
+    { date: 'June 12, 2025', task: 'Submit building permit', status: 'completed' },
+    { date: 'June - August 2025', task: 'Permit review and initial denial', status: 'in-progress' },
     { date: 'Sept 2025 - Q2 2026', task: 'Zoning Board of Appeals approval', status: 'upcoming' },
     { date: 'Q2-Q3 2026', task: 'Foundation and site work', status: 'upcoming' },
     { date: 'Q3 2026', task: 'EkoBuilt kit delivery; exterior completed', status: 'upcoming' },
@@ -149,7 +175,7 @@ const handleFormSubmit = (e) => {
                 <h4 className="font-semibold text-gray-800 mb-4">Project Specifications</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Square Footage:</span>
+                    <span className="text-gray-600">Square Footage (with basement):</span>
                     <span className="font-medium">~2,600 sq ft</span>
                   </div>
                   <div className="flex justify-between">
@@ -181,7 +207,11 @@ const handleFormSubmit = (e) => {
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Project Gallery</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {constructionImages.map((image, index) => (
-              <div key={index} className="relative group overflow-hidden rounded-lg shadow-lg">
+              <div 
+                key={index} 
+                className="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer"
+                onClick={() => openModal(image, index)}
+              >
                 <img 
                   src={image.src} 
                   alt={image.alt}
@@ -317,6 +347,65 @@ const handleFormSubmit = (e) => {
           <p className="text-gray-400 text-sm">Thanks for following our journey!</p>
         </div>
       </footer>
+      {selectedImage && (
+  <div
+    className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4"
+    onClick={closeModal}
+    onKeyDown={handleKeyDown}
+    tabIndex={0}
+  >
+    {/* Close Button */}
+    <button
+      onClick={closeModal}
+      className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-10"
+    >
+      <X size={32} />
+    </button>
+
+    {/* Navigation Buttons */}
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        goToPrevious();
+      }}
+      className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10"
+    >
+      <ChevronLeft size={48} />
+    </button>
+
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        goToNext();
+      }}
+      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10"
+    >
+      <ChevronRight size={48} />
+    </button>
+
+    {/* Image Container */}
+    <div
+      className="relative max-w-7xl max-h-full"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <img
+        src={selectedImage.src}
+        alt={selectedImage.alt}
+        className="max-w-full max-h-[90vh] object-contain rounded-lg"
+      />
+      
+      {/* Image Counter */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
+        {currentIndex + 1} / {constructionImages.length}
+      </div>
+    </div>
+
+    {/* Image Caption */}
+    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-center max-w-2xl">
+      <p className="text-lg font-medium">{selectedImage.alt}</p>
+    </div>
+  </div>
+)}
     </div>
   );
 };
