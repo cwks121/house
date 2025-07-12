@@ -11,10 +11,13 @@ house-build-site/
 │   ├── index.html
 │   ├── favicon.ico
 │   ├── manifest.json
-│   └── images/           # Your construction photos go here
-│       ├── foundation.jpg
-│       ├── framing.jpg
-│       └── interior.jpg
+│   └── images/
+│       ├── Overhead_239r_site_at_purchase.jpeg
+│       ├── proposed_site_plan.png
+│       ├── rendering_rear.png
+│       └── rendering_front_side.png
+│   └── pdfs/
+|       ├── REFUSAL_LETTER-239R_BEECH_ST.pdf
 ├── src/
 │   ├── components/       # Reusable components
 │   │   ├── Header.js

@@ -9,10 +9,20 @@ const HouseProjectWebsite = () => {
   const [visitCount, setVisitCount] = useState(0);
 
 const constructionImages = [
-  { src: `${process.env.PUBLIC_URL}/images/rendering_front_side.png`, alt: 'Rendering of front and side of house' },
-  { src: `${process.env.PUBLIC_URL}/images/rendering_rear.png`, alt: 'Rendering of rear w/ deck' },
-  { src: `${process.env.PUBLIC_URL}/images/proposed_site_plan.png`, alt: 'Proposed site plan' },
-  { src: `${process.env.PUBLIC_URL}/images/Overhead_239r_site_at_purchase.jpeg`, alt: 'Plot view from June 2024' }
+  { src: `${process.env.PUBLIC_URL}/images/rendering_front_side.png`, alt: 'Rendering of front and side of house', type: 'image' },
+  { src: `${process.env.PUBLIC_URL}/images/rendering_rear.png`, alt: 'Rendering of rear w/ deck', type: 'image' },
+  { src: `${process.env.PUBLIC_URL}/images/proposed_site_plan.png`, alt: 'Proposed site plan', type: 'image' },
+  { src: `${process.env.PUBLIC_URL}/images/Overhead_239r_site_at_purchase.jpeg`, alt: 'Plot view from June 2024', type: 'image' }
+];
+
+// Add the PDF as a gallery item
+const galleryItems = [
+  ...constructionImages,
+  {
+    src: `${process.env.PUBLIC_URL}/pdfs/REFUSAL_LETTER-239R_BEECH_ST.pdf`,
+    alt: 'Initial Refusal Letter (PDF)',
+    type: 'pdf'
+  }
 ];
 
 const [selectedImage, setSelectedImage] = useState(null);
@@ -55,8 +65,8 @@ const handleFormSubmit = (e) => {
   });
 };
 
-const openModal = (image, index) => {
-  setSelectedImage(image);
+const openModal = (item, index) => {
+  setSelectedImage(item);
   setCurrentIndex(index);
 };
 
@@ -65,15 +75,15 @@ const closeModal = () => {
 };
 
 const goToPrevious = () => {
-  const newIndex = currentIndex > 0 ? currentIndex - 1 : constructionImages.length - 1;
+  const newIndex = currentIndex > 0 ? currentIndex - 1 : galleryItems.length - 1;
   setCurrentIndex(newIndex);
-  setSelectedImage(constructionImages[newIndex]);
+  setSelectedImage(galleryItems[newIndex]);
 };
 
 const goToNext = () => {
-  const newIndex = currentIndex < constructionImages.length - 1 ? currentIndex + 1 : 0;
+  const newIndex = currentIndex < galleryItems.length - 1 ? currentIndex + 1 : 0;
   setCurrentIndex(newIndex);
-  setSelectedImage(constructionImages[newIndex]);
+  setSelectedImage(galleryItems[newIndex]);
 };
 
 const handleKeyDown = (e) => {
@@ -90,8 +100,8 @@ const handleKeyDown = (e) => {
     { date: 'June 12, 2025', task: 'Submit building permit', status: 'completed'},
     { date: 'June 2025', task: 'Permit review and initial denial', status: 'completed'},
     { date: 'July 2025', task: 'Submit zoning variance application', status: 'in-progress'},
-    { date: 'Sept 2025 - Q2 2026', task: 'Zoning Board of Appeals approval', status: 'upcoming'},
-    { date: 'Q2-Q3 2026', task: 'Foundation and site work', status: 'upcoming'},
+    { date: 'July 2025 - Q4 2026', task: 'Zoning Board of Appeals review and approval', status: 'upcoming'},
+    { date: 'Q1-Q2 2026', task: 'Foundation and site work', status: 'upcoming'},
     { date: 'Q3 2026', task: 'EkoBuilt kit delivery; exterior completed', status: 'upcoming'},
     { date: 'Q3-Q4 2026', task: 'Interior Work', status: 'upcoming'},
     { date: 'Q4 2026', task: 'Final Inspections', status: 'upcoming'},
@@ -207,40 +217,32 @@ const handleKeyDown = (e) => {
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">Project Gallery</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {constructionImages.map((image, index) => (
-              <div 
-                key={index} 
+            {galleryItems.map((item, index) => (
+              <div
+                key={index}
                 className="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer"
-                onClick={() => openModal(image, index)}
+                onClick={() => openModal(item, index)}
               >
-                <img 
-                  src={image.src} 
-                  alt={image.alt}
-                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
+                {item.type === 'image' ? (
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-64 bg-gray-100">
+                    <span className="text-6xl text-red-600">📄</span>
+                    <span className="mt-2 text-gray-800 font-medium">{item.alt}</span>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
                   <Camera className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-                  <p className="text-white font-medium">{image.alt}</p>
+                  <p className="text-white font-medium">{item.alt}</p>
                 </div>
               </div>
             ))}
-            {/* PDF Card */}
-            <a
-              href={`${process.env.PUBLIC_URL}/pdfs/REFUSAL_LETTER-239R_BEECH_ST.pdf`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer flex flex-col justify-end bg-white"
-            >
-              <div className="flex-1 flex items-center justify-center bg-gray-100">
-                <span className="text-6xl text-red-600">📄</span>
-              </div>
-              <div className="p-4">
-                <p className="text-gray-800 font-medium">Initial Refusal Letter (PDF)</p>
-                <p className="text-gray-500 text-sm">View the official permit refusal letter</p>
-              </div>
-            </a>
           </div>
         </div>
       </section>
@@ -364,64 +366,72 @@ const handleKeyDown = (e) => {
         </div>
       </footer>
       {selectedImage && (
-  <div
-    className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4"
-    onClick={closeModal}
-    onKeyDown={handleKeyDown}
-    tabIndex={0}
-  >
-    {/* Close Button */}
-    <button
-      onClick={closeModal}
-      className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-10"
-    >
-      <X size={32} />
-    </button>
+        <div
+          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4"
+          onClick={closeModal}
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
+        >
+          {/* Close Button */}
+          <button
+            onClick={closeModal}
+            className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-10"
+          >
+            <X size={32} />
+          </button>
 
-    {/* Navigation Buttons */}
-    <button
-      onClick={(e) => {
-        e.stopPropagation();
-        goToPrevious();
-      }}
-      className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10"
-    >
-      <ChevronLeft size={48} />
-    </button>
+          {/* Navigation Buttons */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              goToPrevious();
+            }}
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10"
+          >
+            <ChevronLeft size={48} />
+          </button>
 
-    <button
-      onClick={(e) => {
-        e.stopPropagation();
-        goToNext();
-      }}
-      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10"
-    >
-      <ChevronRight size={48} />
-    </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              goToNext();
+            }}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300 transition-colors z-10"
+          >
+            <ChevronRight size={48} />
+          </button>
 
-    {/* Image Container */}
-    <div
-      className="relative max-w-7xl max-h-full"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <img
-        src={selectedImage.src}
-        alt={selectedImage.alt}
-        className="max-w-full max-h-[90vh] object-contain rounded-lg"
-      />
-      
-      {/* Image Counter */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
-        {currentIndex + 1} / {constructionImages.length}
-      </div>
-    </div>
+          {/* Modal Content */}
+          <div
+            className="relative max-w-7xl max-h-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {selectedImage.type === 'image' ? (
+              <img
+                src={selectedImage.src}
+                alt={selectedImage.alt}
+                className="max-w-full max-h-[90vh] object-contain rounded-lg"
+              />
+            ) : (
+              <iframe
+                src={selectedImage.src}
+                title={selectedImage.alt}
+                className="w-[80vw] h-[80vh] bg-white rounded-lg"
+              />
+            )}
 
-    {/* Image Caption */}
-    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-center max-w-2xl">
-      <p className="text-lg font-medium">{selectedImage.alt}</p>
-    </div>
-  </div>
-)}
+            {/* Image/PDF Counter */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
+              {currentIndex + 1} / {galleryItems.length}
+            </div>
+          </div>
+
+          {/* Caption */}
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-center max-w-2xl">
+            <p className="text-lg font-medium">{selectedImage.alt}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
