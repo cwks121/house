@@ -39,10 +39,10 @@ const handleFormSubmit = (e) => {
   };
 
   emailjs.send(
-    'service_wxgaw8a',     // Replace with your Service ID
-    'template_qbfvby8',    // Replace with your Template ID
+    'service_wxgaw8a',     // Service ID
+    'template_qbfvby8',    // Template ID
     templateParams,
-    'PvoFJ6qevHck-PArM'      // Replace with your Public Key
+    'PvoFJ6qevHck-PArM'    // Public Key
   )
   .then((response) => {
     console.log('SUCCESS!', response.status, response.text);
@@ -84,17 +84,18 @@ const handleKeyDown = (e) => {
 
   const milestones = [
     { date: 'April 2024', task: 'Decided to build passive home as \"forever home\"', status: 'completed' },
-    { date: 'July 2024', task: 'Purchase 239 and 239R Beech St', status: 'completed' },
-    { date: 'April 2025', task: 'Finalize architecture', status: 'completed' },
-    { date: 'May 2025', task: 'Finalize proposed site plan', status: 'completed' },
-    { date: 'June 12, 2025', task: 'Submit building permit', status: 'completed' },
-    { date: 'June - August 2025', task: 'Permit review and initial denial', status: 'in-progress' },
-    { date: 'Sept 2025 - Q2 2026', task: 'Zoning Board of Appeals approval', status: 'upcoming' },
-    { date: 'Q2-Q3 2026', task: 'Foundation and site work', status: 'upcoming' },
-    { date: 'Q3 2026', task: 'EkoBuilt kit delivery; exterior completed', status: 'upcoming' },
-    { date: 'Q3-Q4 2026', task: 'Interior Work', status: 'upcoming' },
-    { date: 'Q4 2026', task: 'Final Inspections', status: 'upcoming' },
-    { date: 'Q4 2026', task: 'Move in', status: 'upcoming' }
+    { date: 'July 2024', task: 'Purchase 239 and 239R Beech St', status: 'completed'},
+    { date: 'April 2025', task: 'Finalize architecture', status: 'completed'},
+    { date: 'May 2025', task: 'Finalize proposed site plan', status: 'completed'},
+    { date: 'June 12, 2025', task: 'Submit building permit', status: 'completed'},
+    { date: 'June 2025', task: 'Permit review and initial denial', status: 'completed'},
+    { date: 'July 2025', task: 'Submit zoning variance application', status: 'in-progress'},
+    { date: 'Sept 2025 - Q2 2026', task: 'Zoning Board of Appeals approval', status: 'upcoming'},
+    { date: 'Q2-Q3 2026', task: 'Foundation and site work', status: 'upcoming'},
+    { date: 'Q3 2026', task: 'EkoBuilt kit delivery; exterior completed', status: 'upcoming'},
+    { date: 'Q3-Q4 2026', task: 'Interior Work', status: 'upcoming'},
+    { date: 'Q4 2026', task: 'Final Inspections', status: 'upcoming'},
+    { date: 'Q4 2026', task: 'Move in', status: 'upcoming'}
   ];
 
   return (
@@ -225,6 +226,21 @@ const handleKeyDown = (e) => {
                 </div>
               </div>
             ))}
+            {/* PDF Card */}
+            <a
+              href={`${process.env.PUBLIC_URL}/pdfs/REFUSAL_LETTER-239R_BEECH_ST.pdf`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative group overflow-hidden rounded-lg shadow-lg cursor-pointer flex flex-col justify-end bg-white"
+            >
+              <div className="flex-1 flex items-center justify-center bg-gray-100">
+                <span className="text-6xl text-red-600">📄</span>
+              </div>
+              <div className="p-4">
+                <p className="text-gray-800 font-medium">Initial Refusal Letter (PDF)</p>
+                <p className="text-gray-500 text-sm">View the official permit refusal letter</p>
+              </div>
+            </a>
           </div>
         </div>
       </section>

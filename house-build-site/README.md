@@ -36,3 +36,16 @@ house-build-site/
 ├── package.json
 ├── README.md
 └── .gitignore
+
+# Testing
+Test on local host w/ 
+% npm start
+
+# Deploy process
+Run several commands in order:
+% rm -rf build              
+% rm -rf node_modules/.cache
+% npm install  
+% npm install lucide-react
+% npm run build
+% npm run deploy
