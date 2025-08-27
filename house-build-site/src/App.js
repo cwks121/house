@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Camera, MapPin, Calendar, MessageSquare, Phone, Mail, Home, Users, Wrench, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Camera, MapPin, Calendar, Phone, Mail, Home, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
 const HouseProjectWebsite = () => {
@@ -100,8 +100,15 @@ const handleKeyDown = (e) => {
     { date: 'June 12, 2025', task: 'Submit building permit', status: 'completed'},
     { date: 'June 2025', task: 'Permit review and initial denial', status: 'completed'},
     { date: 'July 2025', task: 'Submit zoning variance application', status: 'completed'},
-    { date: 'August 2025', task: 'Abutters meeting', status: 'in-progress'},
-    { date: 'August 2025 - Q4 2026', task: 'Zoning Board of Appeals review and approval', status: 'in-progress'},
+    { date: 'August 2025 - Q4 2026', task: 'Zoning Board of Appeals review', status: 'in-progress'},
+    { 
+      date: 'September 10, 2025', 
+      task: 'Abutter\'s meeting', 
+      status: 'upcoming',
+      hoverText: `Abutters meeting will be held virtually via Zoom. 
+      Date: September 10, 2025, 7:00 PM.
+      Join: https://us06web.zoom.us/j/87474519861?pwd=87474519861`
+    },
     { date: 'Q1-Q2 2026', task: 'Foundation and site work', status: 'upcoming'},
     { date: 'Q3 2026', task: 'EkoBuilt kit delivery; exterior completed', status: 'upcoming'},
     { date: 'Q3-Q4 2026', task: 'Interior Work', status: 'upcoming'},
@@ -259,7 +266,11 @@ const handleKeyDown = (e) => {
                   milestone.status === 'completed' ? 'bg-green-500' :
                   milestone.status === 'in-progress' ? 'bg-yellow-500' : 'bg-gray-300'
                 }`}></div>
-                <div className="flex-1 bg-white p-4 rounded-lg shadow">
+                <div
+                  className="flex-1 bg-white p-4 rounded-lg shadow"
+                  {...(milestone.hoverText && { title: milestone.hoverText })}
+                  style={milestone.hoverText ? { cursor: 'help' } : {}}
+                >
                   <div className="flex justify-between items-center">
                     <h3 className="font-semibold text-gray-800">{milestone.task}</h3>
                     <span className="text-sm text-gray-500">{milestone.date}</span>
@@ -271,6 +282,11 @@ const handleKeyDown = (e) => {
                     {milestone.status === 'completed' ? 'Completed' :
                      milestone.status === 'in-progress' ? 'In Progress' : 'Upcoming'}
                   </div>
+                  {milestone.hoverText && (
+                    <div className="mt-2 text-xs text-blue-700 bg-blue-50 rounded p-2 border border-blue-200">
+                      {milestone.hoverText}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
