@@ -100,15 +100,8 @@ const handleKeyDown = (e) => {
     { date: 'June 12, 2025', task: 'Submit building permit', status: 'completed'},
     { date: 'June 2025', task: 'Permit review and initial denial', status: 'completed'},
     { date: 'July 2025', task: 'Submit zoning variance application', status: 'completed'},
-    { date: 'August 2025 - Q4 2026', task: 'Zoning Board of Appeals review', status: 'in-progress'},
-    { 
-      date: 'September 10, 2025', 
-      task: 'Abutter\'s meeting', 
-      status: 'upcoming',
-      hoverText: `Abutters meeting will be held virtually via Zoom. 
-      Date: September 10, 2025, 7:00 PM.
-      Join: https://us06web.zoom.us/j/87474519861?pwd=87474519861`
-    },
+    { date: 'September 10, 2025', task: 'Abutter\'s meeting', status: 'completed'},
+    { date: 'October 28, 2025', task: 'Zoning Board of Appeals formal review and decision', status: 'in-progress'},
     { date: 'Q1-Q2 2026', task: 'Foundation and site work', status: 'upcoming'},
     { date: 'Q3 2026', task: 'EkoBuilt kit delivery; exterior completed', status: 'upcoming'},
     { date: 'Q3-Q4 2026', task: 'Interior Work', status: 'upcoming'},
