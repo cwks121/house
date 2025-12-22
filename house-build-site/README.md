@@ -50,5 +50,5 @@ Run several commands in order:
 % rm -rf node_modules/.cache
 % npm install  
 % npm install lucide-react
-% npm run build
+% npm run build --this doesn't seem necessary as `deploy` includes creating the build
 % npm run deploy
