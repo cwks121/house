@@ -6,7 +6,9 @@ const HouseProjectWebsite = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [formData, setFormData] = useState({ name: '', email: '', question: '' });
   const [questions, setQuestions] = useState([]);
-  const [visitCount, setVisitCount] = useState(0);
+  const [buildInfo, setBuildInfo] = useState(null);
+
+
 
 const constructionImages = [
   { src: `${process.env.PUBLIC_URL}/images/rendering_front_side.png`, alt: 'Rendering of front and side of house', type: 'image' },
@@ -35,6 +37,14 @@ const [currentIndex, setCurrentIndex] = useState(0);
       setCurrentImageIndex(prev => (prev + 1) % constructionImages.length);
     }, 5000);
     return () => clearInterval(timer);
+  }, []);
+
+  // Fetch build info
+  useEffect(() => {
+    fetch(`${process.env.PUBLIC_URL}/buildInfo.json`)
+      .then(res => res.json())
+      .then(data => setBuildInfo(data))
+      .catch(err => console.log('Could not load build info', err));
   }, []);
 
 const handleFormSubmit = (e) => {
@@ -102,7 +112,10 @@ const handleKeyDown = (e) => {
     { date: 'July 2025', task: 'Submit zoning variance application', status: 'completed'},
     { date: 'September 10, 2025', task: 'Abutter\'s meeting', status: 'completed'},
     { date: 'October 28, 2025', task: 'Zoning Board of Appeals formal approval', status: 'completed'},
-    { date: 'Q1-Q2 2026', task: 'Foundation and site work', status: 'upcoming'},
+    { date: 'Q1-Q2 2026', task: 'Vendor selection', status: 'in progress', hoverText: 'We are currently in the process of gathering quotes and selecting partners.'},
+    { date: 'Q1-Q2 2026', task: 'Permit prep', status: 'in progress', hoverText: 'The building permit requires seven separate steps, including easement, BWSC, and more. These are estimated to be completed by June 1, 2026.'},
+    { date: 'Q2 2026', task: 'Cut down the big oak tree on NE side of property', status: 'upcoming', hoverText: 'Unfortunately, this tree will die from the required excavation. To avoid unnecessary risk to property and neighbors, we will have it professionally removed before excavation begins.'},
+    { date: 'Q3 2026', task: 'Foundation and site work', status: 'upcoming'},
     { date: 'Q3 2026', task: 'EkoBuilt kit delivery; exterior completed', status: 'upcoming'},
     { date: 'Q3-Q4 2026', task: 'Interior Work', status: 'upcoming'},
     { date: 'Q4 2026', task: 'Final Inspections', status: 'upcoming'},
@@ -128,6 +141,15 @@ const handleKeyDown = (e) => {
           </div>
         </div>
       </header>
+
+      {/* Last Updated Info */}
+      {buildInfo && (
+        <div className="bg-blue-50 border-b border-blue-200">
+          <div className="max-w-6xl mx-auto px-4 py-3 text-center text-sm text-blue-700">
+            Last updated: {buildInfo.date}
+          </div>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section className="relative h-96 md:h-[500px] overflow-hidden">
@@ -162,7 +184,7 @@ const handleKeyDown = (e) => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <p className="mb-6">
-                We're excited to share our journey of building a two story home with walkout basement in the Roslindale neighborhood. This energy-efficient home was designed for our young family. This website will be updated regularly – check back in the future!
+                We're excited to share our journey of building a three story home (including with walkout basement) in the Roslindale neighborhood. This energy-efficient home was designed for our young family. This website will be updated regularly – check back in the future!
               </p>
               <div className="space-y-3">
                 <div className="flex items-center">
@@ -188,7 +210,7 @@ const handleKeyDown = (e) => {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Square Footage (with basement):</span>
-                    <span className="font-medium">~2,600 sq ft</span>
+                    <span className="font-medium">~2,200 sq ft</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Bedrooms:</span>
@@ -260,8 +282,7 @@ const handleKeyDown = (e) => {
                   milestone.status === 'in-progress' ? 'bg-yellow-500' : 'bg-gray-300'
                 }`}></div>
                 <div
-                  className="flex-1 bg-white p-4 rounded-lg shadow"
-                  {...(milestone.hoverText && { title: milestone.hoverText })}
+                  className="flex-1 bg-white p-4 rounded-lg shadow relative group"
                   style={milestone.hoverText ? { cursor: 'help' } : {}}
                 >
                   <div className="flex justify-between items-center">
@@ -276,7 +297,7 @@ const handleKeyDown = (e) => {
                      milestone.status === 'in-progress' ? 'In Progress' : 'Upcoming'}
                   </div>
                   {milestone.hoverText && (
-                    <div className="mt-2 text-xs text-blue-700 bg-blue-50 rounded p-2 border border-blue-200">
+                    <div className="absolute bottom-full left-0 mb-2 invisible group-hover:visible bg-blue-700 text-white text-xs rounded p-2 w-max max-w-xs whitespace-normal z-40 shadow-lg">
                       {milestone.hoverText}
                     </div>
                   )}
@@ -371,7 +392,7 @@ const handleKeyDown = (e) => {
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-8">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="mb-2">© 2025 The Kelley Saulniers. Built with love for our neighbors.</p>
+          <p className="mb-2">© 2026 The Kelley Saulniers. Built with love for our neighbors.</p>
           <p className="text-gray-400 text-sm">Thanks for following our journey!</p>
         </div>
       </footer>

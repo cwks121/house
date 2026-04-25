@@ -40,15 +40,50 @@ house-build-site/
 ├── README.md
 └── .gitignore
 
-# Testing
-Test on local host w/ 
-% npm start
+# Testing Locally
 
-# Deploy process
-Run several commands in order:
-% rm -rf build              
-% rm -rf node_modules/.cache
-% npm install  
-% npm install lucide-react
-% npm run build --this doesn't seem necessary as `deploy` includes creating the build
-% npm run deploy
+## Prerequisites
+- Node.js (v14 or higher) and npm installed on your machine
+
+## Setup & Development
+Follow these steps to test the app locally:
+
+1. **Navigate to the project directory** (if not already there):
+   ```bash
+   cd house-build-site
+   ```
+   Make sure you're inside the `house-build-site` folder before running npm commands.
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server:**
+   ```bash
+   npm start
+   ```
+   The app will open automatically in your default browser at `http://localhost:3000`. The development server will hot-reload when you make changes to the code.
+
+## Running Tests
+To run the test suite:
+```bash
+npm test
+```
+Press `a` to run all tests, or `q` to quit the test watcher.
+
+# Deploy Process
+To build and deploy the site to GitHub Pages, run these commands in order:
+
+```bash
+rm -rf build
+rm -rf node_modules/.cache
+npm install
+npm run build
+npm run deploy
+```
+
+**Notes:**
+- `npm install` ensures all dependencies are up to date
+- `npm run build` creates an optimized production build
+- `npm run deploy` pushes the build to the `gh-pages` branch
